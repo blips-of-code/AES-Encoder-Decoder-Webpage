@@ -1,12 +1,18 @@
 // Utility Functions
-import multiplyMatrixes from './Scripts/MatrixMultiplication';
+import encryptAES from './Scripts/AESEncryption';
+import decryptAES from './Scripts/AESDecryption';
 
 // Assets
-import AuburnLogo from './assets/AuburnLogo.svg'
+import AuburnLogo from './assets/AuburnLogo.svg';
 
 // Styling
-import './App.css'
+import './App.css';
 
+
+// This script is the main HTML for the project.
+
+
+// -- Rendering --
 
 // Renders the main content of the app.
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
