@@ -1,5 +1,5 @@
-import type { Matrix } from './AESTypes';
 // This file implements the SubBytes and inverse SubBytes steps of AES
+import type { Matrix } from './AESTypes';
 
 // AES S-box used during encryption
 // Each byte of the state matrix is used as an index into this table
