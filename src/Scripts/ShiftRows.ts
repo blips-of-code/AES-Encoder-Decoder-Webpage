@@ -22,7 +22,7 @@ For decryption, in order to get the rows back into their original orientation,
 We would either have to shift them the same number of places to the right, 
 or complete the loop, meaning:
 
-Row 1: no shift
+Row 1: no shift (or 4 shift, looping back to the same position)
 Row 2: 3 shift
 Row 3: 2 shift
 Row 4: 1 shift
@@ -34,7 +34,7 @@ Row 4: 1 shift
  * @param input_matrix matrix to be shifted
  * @returns matrix with columns shifted for encryption
  */
-export default function shiftRows(input_matrix: Matrix): Matrix{
+export function shiftRows(input_matrix: Matrix): Matrix{
     // number of rows
     const rowcount = input_matrix.length;
     // number of columns is not necessary
@@ -57,5 +57,36 @@ export default function shiftRows(input_matrix: Matrix): Matrix{
         new_matrix[i] = newrow;
     }
     // return matrix with shifted rows
+    return new_matrix;
+}
+
+/**
+ * Returns Matrix with columns unshifted Left for Decryption
+ * @param input_matrix matrix to be unshifted
+ * @returns matrix with columns unshifted for decryption
+ */
+export function undo_shiftRows(input_matrix: Matrix): Matrix{
+    // number of rows
+    const rowcount = input_matrix.length;
+    // number of columns is not necessary 
+
+    // set up new matrix to hold the shifted rows
+    const new_matrix:Matrix = [];
+
+    // loop through each row in the input matrix
+    for(let i:number =0; i < rowcount; i++){
+        // copy the current input row into the new row
+        let newrow = input_matrix[i];
+        // shift row 1 left 4 times (same position), row 2 left 3 times, etc
+        for(let j:number = 4; j > i; j--){
+            // pop off the leftmost value shifting everything else up
+            let firstval:number = newrow.shift() as number;
+            // put the leftmost value back on the end
+            newrow.push(firstval);
+        }
+        // row shift complete, add the row to the new matrix
+        new_matrix[i] = newrow;
+    }
+    // return the new matrix with unshifted rows
     return new_matrix;
 }
