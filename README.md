@@ -27,7 +27,7 @@ For this project, each group member in the group of 4 can select a step from the
 
 Tentative details 
 
-Programming language: Python 
+Programming language: Typescript 
 
 Key length: 128 bits 
 
