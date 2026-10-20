@@ -15,8 +15,8 @@ const RCON: number[] = [0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40, 0x80, 0x1b, 0x
 // *** FUNCTIONS HERE ***
 
 // Function: 128-bit key expanded into 1 round key matrix per round
-// @param _key: 16 key bytes (0-255)
-// @returns: (_rounds + 1) round key matrices
+// @param _key: number array containing 16 key bytes (0-255) eg: [0, 1, 2, ...]
+// @returns: (_rounds + 1) round key matrices (16-byte 4x4 matrices, one for each round)
 export function expandKey(_key: number[], _rounds: number = 10): Matrix[] {
     if (_key.length !== 16)
         throw new Error(`Must be a 16-byte key!`);

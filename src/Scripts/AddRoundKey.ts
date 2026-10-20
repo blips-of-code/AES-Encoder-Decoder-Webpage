@@ -16,17 +16,35 @@ export function addRoundKey(_state: Matrix, _roundKey: Matrix): Matrix {
         throw new Error('Matrices have mismatched rows given that state matrix has ${_state.length} row(s), while round key matrix has ${_roundKey.length} row(s).');
 
     // XOR'ing every byte of the row state in the same position as the round key
-    return _state.map((row, rowIndex)) => {
-        if (row.length !== _roundKey[rowIndex].length)
-            throw new Error('Matrices have mismatched columns given that state matrix has ${row.length} column(s), while round key matrix has ${_roundKey[rowIndex].length} column(s).');
+    // BROKEN
+    // return _state.map((row, rowIndex)) => {
+    //     if (row.length !== _roundKey[rowIndex].length)
+    //         throw new Error('Matrices have mismatched columns given that state matrix has ${row.length} column(s), while round key matrix has ${_roundKey[rowIndex].length} column(s).');
 
-        return row.map((byte, colIndex) => byte ^ _roundKey[rowIndex][colIndex]);
+    //     return row.map((byte, colIndex) => byte ^ _roundKey[rowIndex][colIndex]);
+    // }
+
+    // convert the input matrix to a 16 byte number array
+    const state_bits = matrixToBytes(_state);
+    // convert the round key matrix to a 16 byte number array
+    const key_bits = matrixToBytes(_roundKey);
+    // set up a number array to hold the result
+    const res_bits:number[] = [];
+    // loop through each byte in the input matrix
+    for(let i = 0; i < state_bits.length; i++){
+        // bitwise XOR the byte at the index in the state matrix with its corresponding key byte
+        const this_bit = state_bits[i] ^ key_bits[i];
+        // add the XOR'd byte to the result
+        res_bits.push(this_bit);
     }
+    // convert the number array result into a 4x4 matrix and return it
+    return (bytesToMatrix(res_bits));
 }
 
 
 // Inverse Function
 export function inverseAddRoundKey(_state: Matrix, _roundKey: Matrix): Matrix {
+    // this is fine, XOR inverts itself as long as the inputs are the same
     return addRoundKey(_state, _roundKey);
 }
 
@@ -37,7 +55,7 @@ export function bytesToMatrix(_bytes: number[]): Matrix {
     if (_bytes.length !== 16)
         throw new Error('This function must have exactly 16 bytes!');
 
-    const matrix: Matrix [[], [], [], []];
+    const matrix: Matrix = [[], [], [], []];
     for (let i: number = 0; i < 16; i++)
         matrix[i % 4][Math.floor(i / 4)] = _bytes[i];
 
