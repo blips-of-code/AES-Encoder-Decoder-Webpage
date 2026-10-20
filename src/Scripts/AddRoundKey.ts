@@ -2,7 +2,7 @@
 // Reference: https://www.geeksforgeeks.org/computer-networks/advanced-encryption-standard-aes/ 
 // Author: Kumi Weilbacher
 
-import type { Matrix } from '/.AESTypes';
+import type { Matrix } from './AESTypes';
 
 // Process of the this step:
 // Each byte of 4x4 regular matrix XOR'ed with corresponding byte of 4x4 round key matrix
@@ -16,12 +16,12 @@ export function addRoundKey(_state: Matrix, _roundKey: Matrix): Matrix {
         throw new Error('Matrices have mismatched rows given that state matrix has ${_state.length} row(s), while round key matrix has ${_roundKey.length} row(s).');
 
     // XOR'ing every byte of the row state in the same position as the round key
-    return _state.map((row, rowIndex)) => {
+    return _state.map((row, rowIndex) => {
         if (row.length !== _roundKey[rowIndex].length)
             throw new Error('Matrices have mismatched columns given that state matrix has ${row.length} column(s), while round key matrix has ${_roundKey[rowIndex].length} column(s).');
 
         return row.map((byte, colIndex) => byte ^ _roundKey[rowIndex][colIndex]);
-    }
+    });
 }
 
 
@@ -37,7 +37,7 @@ export function bytesToMatrix(_bytes: number[]): Matrix {
     if (_bytes.length !== 16)
         throw new Error('This function must have exactly 16 bytes!');
 
-    const matrix: Matrix [[], [], [], []];
+    const matrix: Matrix = [[], [], [], []];
     for (let i: number = 0; i < 16; i++)
         matrix[i % 4][Math.floor(i / 4)] = _bytes[i];
 
