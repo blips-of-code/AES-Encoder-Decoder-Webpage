@@ -2,7 +2,7 @@
 // Reference: https://www.geeksforgeeks.org/computer-networks/advanced-encryption-standard-aes/ 
 // Author: Kumi Weilbacher
 
-import type { Matrix } from '/.AESTypes';
+import type { Matrix } from './AESTypes';
 
 // Process of the this step:
 // Each byte of 4x4 regular matrix XOR'ed with corresponding byte of 4x4 round key matrix
@@ -16,29 +16,12 @@ export function addRoundKey(_state: Matrix, _roundKey: Matrix): Matrix {
         throw new Error('Matrices have mismatched rows given that state matrix has ${_state.length} row(s), while round key matrix has ${_roundKey.length} row(s).');
 
     // XOR'ing every byte of the row state in the same position as the round key
-    // BROKEN
-    // return _state.map((row, rowIndex)) => {
-    //     if (row.length !== _roundKey[rowIndex].length)
-    //         throw new Error('Matrices have mismatched columns given that state matrix has ${row.length} column(s), while round key matrix has ${_roundKey[rowIndex].length} column(s).');
+    return _state.map((row, rowIndex) => {
+        if (row.length !== _roundKey[rowIndex].length)
+            throw new Error('Matrices have mismatched columns given that state matrix has ${row.length} column(s), while round key matrix has ${_roundKey[rowIndex].length} column(s).');
 
-    //     return row.map((byte, colIndex) => byte ^ _roundKey[rowIndex][colIndex]);
-    // }
-
-    // convert the input matrix to a 16 byte number array
-    const state_bits = matrixToBytes(_state);
-    // convert the round key matrix to a 16 byte number array
-    const key_bits = matrixToBytes(_roundKey);
-    // set up a number array to hold the result
-    const res_bits:number[] = [];
-    // loop through each byte in the input matrix
-    for(let i = 0; i < state_bits.length; i++){
-        // bitwise XOR the byte at the index in the state matrix with its corresponding key byte
-        const this_bit = state_bits[i] ^ key_bits[i];
-        // add the XOR'd byte to the result
-        res_bits.push(this_bit);
-    }
-    // convert the number array result into a 4x4 matrix and return it
-    return (bytesToMatrix(res_bits));
+        return row.map((byte, colIndex) => byte ^ _roundKey[rowIndex][colIndex]);
+    });
 }
 
 

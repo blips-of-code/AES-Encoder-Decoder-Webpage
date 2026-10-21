@@ -1,5 +1,8 @@
 // Utility Functions
 import multiplyMatrixes from './MatrixMultiplication';
+import { addRoundKey } from './AddRoundKey';
+import { shiftRows } from './ShiftRows';
+import { subBytes } from './SubBytes';
 
 // Classes & Types
 import type { Matrix } from './AESTypes';
@@ -18,16 +21,16 @@ import type { Matrix } from './AESTypes';
    */
 export default function encryptAES(_plaintext: string, _key: string): string {
     // Step 1: Substitute bytes using s-box lookup table.
-    // Add functionality here.
+    const substitutedMatrix: Matrix = subBytes([[1, 2], [3, 4]]);
 
     // Step 2: Shift rows of the state matrix.
-    // Add functionality here.
+    const matrixWithShiftedRows: Matrix = shiftRows(substitutedMatrix);
 
     // Step 3: Matrix multiplication.
-    const resultingMatrix: Matrix = multiplyMatrixes([[1, 2], [3, 4]], [[5, 6], [7, 8]]);
+    const multipliedMatrix: Matrix = multiplyMatrixes(matrixWithShiftedRows, matrixWithShiftedRows);
 
     // Step 4: Add round key
-    // Add functionality here.
+    const matrixAfterRoundKey: Matrix = addRoundKey(multipliedMatrix, multipliedMatrix);
 
     // Returns the AES-encrypted ciphertext.
     return "Implement AES ciphertext generation.";
