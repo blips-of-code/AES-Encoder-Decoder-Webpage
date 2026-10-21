@@ -44,17 +44,28 @@ export function shiftRows(input_matrix: Matrix): Matrix{
 
     // loop through each row in the input matrix
     for(let i: number = 0; i < rowcount; i++){
-        // copy the current input row into the new row
-        let newrow = input_matrix[i];
+        // copy the current input row into the new row, with map rotating the indexes
+        // modified from the map example of the G4G article cited above
+        let newrow:number[] = input_matrix[i].map((_, index, array) =>
+        array[(index + (rowcount-i)) % array.length]);
         // repeat 0, then 1, then 2, then 3, etc.
-        for(let j:number = 0; j < i; j++){
-            // pops off the first value and returns it (pops from lefthand side)
-            let firstval:number = newrow.shift() as number;
-            // put the first value back on at the end (like its looping over)
-            newrow.push(firstval);
-        }
+        // for(let j:number = 0; j < i; j++){
+        //     // // pops off the first value and returns it (pops from lefthand side)
+        //     // let firstval:number = newrow.shift() as number;
+        //     // temprow = newrow;
+        //     // console.log("firstval, newrow",firstval,":::", newrow)
+        //     // // put the first value back on at the end (like its looping over)
+        //     // temprow.push(firstval);
+        //     // // newrow = temprow;
+        //     newrow = rotationFunction(input_matrix[i]);
+        //     console.log(newrow)
+
+        // }
+        
+        // console.log("newrow",newrow);
+        // console.log("temprow", temprow)
         // row shift complete, add it to the matrix
-        new_matrix[i] = newrow;
+        new_matrix.push(newrow);
     }
     // return matrix with shifted rows
     return new_matrix;
@@ -75,15 +86,17 @@ export function undo_shiftRows(input_matrix: Matrix): Matrix{
 
     // loop through each row in the input matrix
     for(let i:number =0; i < rowcount; i++){
-        // copy the current input row into the new row
-        let newrow = input_matrix[i];
-        // shift row 1 left 4 times (same position), row 2 left 3 times, etc
-        for(let j:number = 4; j > i; j--){
-            // pop off the leftmost value shifting everything else up
-            let firstval:number = newrow.shift() as number;
-            // put the leftmost value back on the end
-            newrow.push(firstval);
-        }
+        // // copy the current input row into the new row
+        // let newrow = input_matrix[i];
+        // // shift row 1 left 4 times (same position), row 2 left 3 times, etc
+        // for(let j:number = 4; j > i; j--){
+        //     // pop off the leftmost value shifting everything else up
+        //     let firstval:number = newrow.shift() as number;
+        //     // put the leftmost value back on the end
+        //     newrow.push(firstval);
+        // }
+        let newrow:number[] = input_matrix[i].map((_, index, array) =>
+        array[(index + i) % array.length]);
         // row shift complete, add the row to the new matrix
         new_matrix[i] = newrow;
     }

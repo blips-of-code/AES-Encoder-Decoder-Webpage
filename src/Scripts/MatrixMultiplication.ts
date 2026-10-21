@@ -85,3 +85,35 @@ export function calculateMatrixDotProduct(_matrixA: Matrix, _matrixB: Matrix, _c
     // Returns the resulting dot product.
     return dotProductSum;
 }
+
+// GMul and MixColumns adapted from the C# example found here: https://en.wikipedia.org/wiki/Rijndael_MixColumns
+export function GMul(a:number, b:number):number{
+    let p:number = 0;
+    for(let i=0; i<8; i++){
+        if((b & 1)!= 0){
+            p ^= a;
+        }
+        let high_bit_set:boolean = (a & 0x80) != 0;
+        a <<= 1;
+        if(high_bit_set){
+            // had to use 0x11b instead of 0x1b like the article does
+            a ^= 0x11B;
+        }
+        b >>= 1;
+    }
+    return p;
+}
+
+export function MixColumns(_input:Matrix): Matrix {
+    const temp_matrix: Matrix = generateMatrix(4,4);
+    const s:Matrix = _input;
+
+    for(let c=0; c<4; c++){
+        temp_matrix[0][c] = (Number)(GMul(0x02, s[0][c]) ^ GMul(0x03, s[1][c]) ^ s[2][c] ^ s[3][c]);
+        temp_matrix[1][c] = (Number)(s[0][c] ^ GMul(0x02, s[1][c]) ^ GMul(0x03, s[2][c]) ^ s[3][c]);
+        temp_matrix[2][c] = (Number)(s[0][c] ^ s[1][c] ^ GMul(0x02, s[2][c]) ^ GMul(0x03, s[3][c]));
+        temp_matrix[3][c] = (Number)(GMul(0x03, s[0][c]) ^ s[1][c] ^ s[2][c] ^ GMul(0x02, s[3][c]));
+    }
+    console.log("temp_matrix", temp_matrix);
+    return temp_matrix;
+}

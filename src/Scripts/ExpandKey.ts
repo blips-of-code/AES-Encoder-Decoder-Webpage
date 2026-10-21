@@ -1,10 +1,10 @@
 // Generates round keys used by AddRoundKey from the 128-bit key
 // Author: Kumi W.
 
-import { bytesToMatrix } from '/AddRoundKey.ts';
+import { bytesToMatrix } from './AddRoundKey.ts';
 import { subBytes } from './SubBytes.ts';
 
-import type { Matrix } from '.AESTypes';
+import type { Matrix } from './AESTypes';
 
 // Key is 4 words (4-byte columns) where each new word is built from earlier ones
 // 4 words per group gives the round key
