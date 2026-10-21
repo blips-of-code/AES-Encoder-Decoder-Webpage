@@ -13,12 +13,12 @@ import type { Matrix } from './AESTypes';
 export function addRoundKey(_state: Matrix, _roundKey: Matrix): Matrix {
     // Condition check to validate state and round key must be same size to pair bytes
     if (_state.length !== _roundKey.length)
-        throw new Error('Matrices have mismatched rows given that state matrix has ${_state.length} row(s), while round key matrix has ${_roundKey.length} row(s).');
+        throw new Error(`Matrices have mismatched rows given that state matrix has ${_state.length} row(s), while round key matrix has ${_roundKey.length} row(s).`);
 
     // XOR'ing every byte of the row state in the same position as the round key
     return _state.map((row, rowIndex) => {
         if (row.length !== _roundKey[rowIndex].length)
-            throw new Error('Matrices have mismatched columns given that state matrix has ${row.length} column(s), while round key matrix has ${_roundKey[rowIndex].length} column(s).');
+            throw new Error(`Matrices have mismatched columns given that state matrix has ${row.length} column(s), while round key matrix has ${_roundKey[rowIndex].length} column(s).`);
 
         return row.map((byte, colIndex) => byte ^ _roundKey[rowIndex][colIndex]);
     });
@@ -27,6 +27,7 @@ export function addRoundKey(_state: Matrix, _roundKey: Matrix): Matrix {
 
 // Inverse Function
 export function inverseAddRoundKey(_state: Matrix, _roundKey: Matrix): Matrix {
+    // this is fine, XOR inverts itself as long as the inputs are the same
     return addRoundKey(_state, _roundKey);
 }
 
