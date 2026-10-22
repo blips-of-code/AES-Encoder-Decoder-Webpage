@@ -11,7 +11,11 @@ import { MixColumns } from './GaloisMatrixMult';
 
 
 // This file is the main script for AES encryption, tying together all 4 steps.
-
+// References:
+// https://www.geeksforgeeks.org/computer-networks/advanced-encryption-standard-aes/ 
+// https://medium.com/@atulit23/aes-encryption-i-how-it-works-d93f8cc8193e 
+// https://xilinx.github.io/Vitis_Libraries/security/2021.1/guide_L1/internals/iaes.html
+// (additional references listed in comment above the function for which they are used)
 
 // -- Functions --
 
@@ -83,6 +87,7 @@ export default function encryptAES(_plaintext: string, _key: string): string {
 }
 
 /** Converts a string to a number array
+ * https://www.javacodegeeks.com/2021/11/javascript-convert-character-to-ascii-and-vice-versa.html 
  * 
  * @param _input string to be converted to a number array
  * @returns a number array containing the ascii value of each character from the input string as a separate element
@@ -112,6 +117,7 @@ export function numarray_to_string(_input: number[]): string {
 
 /** converts a string into equally sized blocks stored as nxn matrices of _length size 
  * (16 for our purposes). Will pad with spaces if the string length is not a perfect multiple of _length.
+ * https://www.geeksforgeeks.org/javascript/how-to-split-a-string-into-segments-of-n-characters-in-javascript/
  * 
  * @param _input string to be split into blocks
  * @param _length number of bytes in each block

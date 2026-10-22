@@ -1,6 +1,6 @@
 
 /**
- * 
+ * https://en.wikipedia.org/wiki/Rijndael_MixColumns
  * This file is for the set of pre-calculated lookup tables found at the bottom of the
  * wikipedia article for Rijndael Mix Columns. These are a shortcut for Galois matrix multiplication
  */
