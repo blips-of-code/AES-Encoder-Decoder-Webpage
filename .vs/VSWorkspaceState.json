@@ -3,8 +3,8 @@
     "",
     "\\src",
     "\\src\\Assets",
-    "\\src\\scripts"
+    "\\src\\Scripts"
   ],
-  "SelectedNode": "\\src\\scripts\\MatrixMultiplication.ts",
+  "SelectedNode": "\\src\\App.ts",
   "PreviewInSolutionExplorer": false
 }
