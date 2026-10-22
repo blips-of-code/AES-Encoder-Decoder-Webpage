@@ -3,7 +3,7 @@ import encryptAES from './Scripts/AESEncryption';
 import decryptAES from './Scripts/AESDecryption';
 
 // Assets
-import AuburnLogo from './assets/AuburnLogo.svg';
+import AuburnLogo from './Assets/AuburnLogo.svg';
 
 // Styling
 import './App.css';
