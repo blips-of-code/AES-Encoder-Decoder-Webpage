@@ -1,9 +1,13 @@
 {
   "ExpandedNodes": [
     "",
+    "\\.github",
+    "\\.github\\workflows",
+    "\\public",
     "\\src",
     "\\src\\Assets",
-    "\\src\\Scripts"
+    "\\src\\Scripts",
+    "\\tests"
   ],
   "SelectedNode": "\\src\\App.ts",
   "PreviewInSolutionExplorer": false

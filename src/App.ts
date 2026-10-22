@@ -21,18 +21,29 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <div class="hero">
     <img src="${AuburnLogo}" class="base" width="170" height="179" alt="Auburn Logo">
   </div>
+
   <div>
-    <h1>AES Project</h1>
-    <p>Welcome to our COMP5370 cybersecurity project.</p>
+
+    <h1>Auburn COMP5370</h1>
+    <h2>AES Encryption Project</h2>
+    <p>This project implements AES encryption and decryption.</p>
+    <p>Try it out by entering a message and a 128-bit key (16 characters) below, then click "Encrypt" or "Decrypt".</p>
+
     <br>
+
     <form id="inputform">
       <textarea id="msg_input" name="msg_input" rows="5" cols="55" placeholder="Input your message here..."></textarea>
+
       <br>
+
       Key (128-bit): <input type="text" id="key_input" name="key_input" minlength="16" maxlength="16">
+
       <br>
+
       <button type="submit" id="encrypt_button" name="encrypt_button" value="Encrypt">Encrypt</button>
       <button type="submit" id="decrypt_button" name="decrypt_button" value="Decrypt">Decrypt</button>
     </form>
+
     <br>
       <textarea readonly id="msg_output" name="msg_output" rows="5" cols="55" placeholder="Output will be shown here..."></textarea>
   </div>
